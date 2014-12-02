@@ -107,9 +107,9 @@ As long as the domain/range pairs match up in the usual way, we have no problem.
 
 ```haskell
 (>>) = (<=<)
-```haskell
-
 ```
+
+```haskell
 kleisliExample :: (Ord a, Ord b) => Map b c -> Map a b -> a -> Maybe c
 kleisliExample mp1 mp2 = do
   flip M.lookup mp1
