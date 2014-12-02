@@ -1,0 +1,29 @@
+To Cover:
+
+- InstanceSigs
+    - Allows placement of instantiated type signature in instance declarations, i.e.
+        (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
+- ConstraintKinds
+    - Use wacky shit for constraints (still a bit in the dark about this one)
+- AutoDeriveTypeable
+    - Automatically derives Typeable instances (implies DeriveDataTypeable)
+- PatternSynonyms
+    - Allows synonyms for patterns of things.
+- RoleAnnotations
+    - 
+
+- NegativeLiterals
+    - Allows -x == negate (fromInteger x)
+- NumDecimals
+    - Allows 1.2e6 :: Num a => a
+
+Here are some categories of things we've covered...
+
+- Control Flow (Arrows)
+- Pattern Matching (Pattern Guards, PatternSynonyms, N+K Patterns)
+- List Comprehensions (Parallel, TransformListComp, MonadComprehensions)
+- GADTs / Type Families, Kind Lifting
+- Small extensions (in `postfix`, like record accessing, multiwayif, postfix operators)
+- Type Operators (which deserve their own I think)
+- Rebindable Syntax (deserves its own)
+- Deriving (No writing yet, but DeriveFunctor/Traversable/Typeable/AutoDeriveTypeable)

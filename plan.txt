@@ -1,0 +1,7 @@
+Day 1: Pragmas galore (done)
+Day 2: Rebindable Syntax (done)
+Day 3: Pattern Matching (PatternGuards)
+Day 4: Type Operators
+Day 5: Arrows
+Day 6: List Comprehensions
+Day 7: DataKinds/GadtSyntax
