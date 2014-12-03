@@ -37,7 +37,7 @@ parallelListComp = [ x + y * z
                    ]
 ```
 
-This will this function instead
+This will produce this function:
 
 ```haskell
 map (\(x, y, z) -> x + y * z) (zip3 [0..10] [10..20] [20..30])
