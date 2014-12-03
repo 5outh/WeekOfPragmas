@@ -96,7 +96,7 @@ friends = [ Character "Phoebe" "Buffay" 1963
           ]
 ```
 
-We can use the fields of `Character` as we would columns of a database table and process them using  `TransformListComprehensions`. Let's say we want to collect the names the oldest `k` `friend`s from our group. Here's a function that will do just that:
+We can use the fields of `Character` as we would columns of a database table and process them using  `TransformListComprehensions`. Let's say we want to collect the names the oldest `k` `friend`s from our group. Here's a function that will do just that (note the use of `RecordWildCards`!):
 
 ```haskell
 oldest :: Int -> [Character] -> [String]
