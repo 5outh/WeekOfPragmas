@@ -2,6 +2,8 @@
 
 import GHC.Exts
 import qualified Data.Map as M
+import Data.List
+import Data.Ord
 
 -- Just one more sql-like query
 
@@ -26,11 +28,11 @@ fibs = 0 : 1 : [ x + y
 -- [0,1,1,2,3,5,8,13,21,34]
 
 fiblikes :: [Int]
-fiblikes = 0 : 1 : [ x + y + z
-                   | x <- fibs
-                   | y <- tail fibs
-                   | z <- tail (tail fibs)
-                   ]
+fiblikes = 0 : 1 : 2 : [ x + y + z
+                       | x <- fibs
+                       | y <- tail fibs
+                       | z <- tail (tail fibs)
+                       ]
 
 -- λ> take 10 fiblikes
 -- [0,1,2,4,6,10,16,26,42,68]
@@ -41,37 +43,46 @@ fiblikes = 0 : 1 : [ x + y + z
 -- the :: Eq a => [a] -> a
 -- groupWith :: Ord b => (a -> b) -> [a] -> [[a]]
 
-data Character = Character{ first :: String, lst :: String, birthyear :: Int }
+data Character = Character{ firstName :: String, lastName :: String, birthYear :: Int }
   deriving (Show, Eq)
 
 friends :: [Character]
 friends = [ Character "Phoebe" "Buffay" 1963
           , Character "Chandler" "Bing" 1969
           , Character "Rachel" "Green" 1969
-          , Character "Joey" "Tribbiani" 1967 
-          , Character "Monica" "Geller" 1964
-          , Character "Ross" "Geller" 1966 
+          , Character "Joey" "Tribbiani" 1967
+          , Character "Ross" "Geller" 1966
           ]
 
 oldest :: Int -> [Character] -> [String]
-oldest k tbl = [ first ++ " " ++ lst
+oldest k tbl = [ firstName ++ " " ++ lastName
                | Character{..} <- tbl
-               , then sortWith by birthyear
+               , then sortWith by birthYear
                , then take k ]
+
+groupByLargest :: Ord b => (a -> b) -> [a] -> [[a]]
+groupByLargest f = sortBy (comparing (negate . length)) . groupWith f
+
+bestBirthYears :: Int -> [Character] -> [(Int, [String])]
+bestBirthYears k tbl = [ (the birthYear, firstName)
+                       | Character{..} <- tbl
+                       , then group by birthYear using groupByLargest
+                       , then take k
+                       ]
 
 -- ONE more query.
 
---employees = [ ("Simon", "MS", 80)
---            , ("Erik", "MS", 100)
---            , ("Phil", "Ed", 40)
---            , ("Gordon", "Ed", 45)
---            , ("Paul", "Yale", 60) ]
+employees = [ ("Simon", "MS", 80)
+           , ("Erik", "MS", 100)
+           , ("Phil", "Ed", 40)
+           , ("Gordon", "Ed", 45)
+           , ("Paul", "Yale", 60) ]
 
---output = [ (the dept, sum salary)
---         | (name, dept, salary) <- employees
---         , then group by dept using groupWith
---         , then sortWith by (sum salary)
---         , then take 5 ]
+output = [ (the dept, sum salary)
+        | (name, dept, salary) <- employees
+        , then group by dept using groupWith
+        -- , then sortWith by (sum salary)
+        , then take 5 ]
 
 -- keep in mind the original list comprehension:
 -- [(a, b) | a <- xs, b <- ys]
@@ -90,6 +101,12 @@ monadExample = [ x+y | x <- Just 1, y <- Just 2 ]
 
 sumIntSqrts :: Int -> Int -> Maybe Int
 sumIntSqrts a b = [ x + y | x <- M.lookup a sqrts, y <- M.lookup b sqrts ]
+
+greet :: IO String
+greet = [ name 
+        | name <- getLine
+        , _ <- putStrLn $ unwords ["Hello, ", name, "!"]
+        ]
 
 -- couple more monad examples could be nice
 
