@@ -13,7 +13,7 @@ import Data.Ord (comparing)
 
 List Comprehensions are sparsely used in Haskell. Often we opt to instead use `Applicative`s or `Monad`s with `do` notation to construct lists instead. Let's make them better with some GHC extensions!
 
-## ParallelListComprehensions
+## ParallelListComp
 
 Let's take a simple, normal list comprehension:
 
