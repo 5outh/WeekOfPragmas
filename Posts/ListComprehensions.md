@@ -77,14 +77,7 @@ The function this generates looks pretty ugly compared to `fibs`, but written wi
 
 ## TransformListComp
 
-```
--- SQL-like comprehensions
--- sortWith :: Ord b => (a -> b) -> [a] -> [a]
--- the :: Eq a => [a] -> a
--- groupWith :: Ord b => (a -> b) -> [a] -> [[a]]
-```
-
-`TransformListComp` gives us something really powerful and really strange. It leverages `GHC.Exts` to give us an SQL-like syntax to process lists as if they were database tables. Let's construct a simple "table" that we can use to run queries on.
+`TransformListComp` gives us something really powerful and really strange. It gives us an SQL-like syntax to process lists as if they were database tables. Let's construct a simple "table" that we can use to run queries on.
 
 ```haskell
 data Character = Character
