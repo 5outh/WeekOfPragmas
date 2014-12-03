@@ -73,7 +73,7 @@ fiblikes = 0 : 1 : [ x + y + z
                    ]
 ```
 
-This ends up looking pretty ugly compared to `fibs`, but written with `ParallelListComprehension` syntax, we get something much nicer.
+The function this generates looks pretty ugly compared to `fibs`, but written with `ParallelListComprehension` syntax, we get something much nicer.
 
 ## TransformListComp
 
