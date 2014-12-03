@@ -1,9 +1,9 @@
-## A Week of Pragmas: Day 2 (Rebindable Syntax)
+## 24 Days of GHC Extensions: Rebindable Syntax
 
 ```haskell
 {-# LANGUAGE RebindableSyntax, NoMonomorphismRestriction #-}
 
-import Prelude hiding ((>>), return)
+import Prelude hiding ((>>), (>>=), return)
 import Data.Monoid
 import Control.Monad ((<=<))
 import Data.Map as M
@@ -35,7 +35,11 @@ addNumbers = do
   where (>>) = (+)
 ```
 
-I'm joking, of course, but this produces exactly what you'd expect: `150`. If you've been using Haskell for long enough, or have some experience with abstract algebra, you'll know that Integers form a `Monoid` using 0 as the identity element and addition as the binary operator. Why not generalize the above, using `Data.Monoid`'s `Sum` data type. For the next couple of examples, we'll use the following top-level bindings:
+I'm joking, of course, but this produces exactly what you'd expect: `150`. 
+
+# Monoids
+
+If you've been using Haskell for long enough, or have some experience with abstract algebra, you'll know that Integers form a `Monoid` using 0 as the identity element and addition as the binary operator. Why not generalize the above, using `Data.Monoid`'s `Sum` data type. For the next couple of examples, we'll use the following top-level bindings:
 
 ```haskell
 (>>) = mappend
@@ -71,7 +75,9 @@ tummyMuscle = do
     "b"
 ```
 
-Cool, we can use `do` notation now to handle Monoidal computations! What else can we do?
+Cool, we can use `do` notation now to handle monoidal computations! What else can we do?
+
+# Composition
 
 If you're coming from an imperative programming language, you might be wondering if we can apply a bunch of functions in sequence. Well, sure we can! Using flipped composition as `>>`, we can apply functions to an input in sequence and output the result. For the next few examples, we'll use the following bindings:
 
@@ -126,9 +132,9 @@ a =>> \x -> g x
 
 See the problem? The `x` we're "extracting" is just the `a` we passed in. So `do{ x <- a; g x }` is exactly equivalent to `g a`, which isn't very useful.
 
-TODO: Set
+# Forcing the Monad
 
-Switching gears a bit, it's a relatively common problem in Haskell to *think* you have a `Monad` instance for some data type, but in reality, additional constraints make this impossible. A good example is `Set` from `Data.Set`.
+It's a relatively common problem in Haskell to *think* you have a `Monad` instance for some data type, but in reality, additional constraints make this impossible. A good example is `Set` from `Data.Set`.
 
 One might expect that `Set`s admit a monad instance given that `[]` does -- we want to be able to, for example, write this:
 

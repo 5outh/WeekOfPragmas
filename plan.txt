@@ -5,3 +5,102 @@ Day 4: Type Operators
 Day 5: Arrows
 Day 6: List Comprehensions
 Day 7: DataKinds/GadtSyntax
+
+
+### NOTES
+[14:40] <ocharles> hi!
+[14:40] <south> Hey!
+[14:41] <ocharles> omg, I just realised this years acronym
+[14:41] <ocharles> 24 doge
+[14:41] <ocharles> AMAZING
+[14:41] <ocharles> anyway
+[14:41] <south> Hahaha
+[14:41] <south> Wow!
+[14:41] == ocharles [sid30093@musicbrainz/user/ocharles]
+[14:41] ==  realname : Oliver Charles
+[14:41] ==  channels : #haskell
+[14:41] ==  server   : wilhelm.freenode.net [NL]
+[14:41] ==  account  : ocharles
+[14:41] == End of WHOIS
+[14:41] <ocharles> such advent
+[14:41] <ocharles> The current focus of 24 doge is "binding" extensions
+[14:41] <south> :P
+[14:41] <ocharles> and it seems you've written a bit about this
+[14:41] <ocharles> so far, i have view patterns, pattern synonyms and will have record wild cards
+[14:42] <south> Okay, cool
+[14:42] <ocharles> LambdaCase and MultiWayIf I really want - and they could probably do a day together
+[14:42] <south> Are you writing them as you go, or do you have a bunch of them laid out already?
+[14:42] <ocharles> as I go, pretty much
+[14:42] <ocharles> with a rough plan in my head
+[14:43] <south> Yeah, the way I had mine planned out was to focus on a "theme" each day
+[14:43] <ocharles> RebindableSyntax I really like, but I think it would be good to focus on using it for actual monads - e.g., monads with extra constraints (like Set) or more elaborate monads like IMonad
+[14:43] <south> With 24 doge those themes can probably span a few days
+[14:43] <south> Sweet! Let me take a look at what I've got so far
+[14:44] <south> It's actually been a while since I've written, school/work has had me hammered
+[14:45] <ocharles> yea, i know that - work for me is pretty hectic atm, and the uni degree continues to demand more and more
+[14:45] <south> Sounds about right :)
+[14:45] <south> Thanks for doing these posts by the way -- loved 24 days of hackage the past two years
+[14:46] <south> Did you want to do anything on PatternSynonyms?
+[14:47] <ocharles> I have most of that written up already
+[14:47] <south> Oh gotcha, sorry I missed that
+[14:47] <ocharles> i like the cofree stuff though... but it's already quite a long post
+[14:47] <south> That's cool!
+[14:48] <south> Did you have anything planned for List Comprehension extensions, i.e https://github.com/5outh/WeekOfPragmas/blob/master/ListComprehensions.hs
+[14:48] <ocharles> Oh, i missed these posts
+[14:48] <ocharles> i just looked at "days"
+[14:48] <ocharles> nothing planned there, other than "I should cover that"
+[14:48] <south> Cool cool haha
+[14:48] <south> Yeah, I wrote out basically all of the code
+[14:49] <ocharles> these look like nice examples
+[14:49] <south> Adding little things in as needed when writing the actual posts, so basically the haskell files in there are riddled with pragma usage
+[14:49] <south> Thanks!
+[14:49] <south> Feel free to use them!
+[14:50] <ocharles> are you planning to write up the list comprehensions one?
+[14:50] <south> So when I saw 24 doge this morning, I figured it'd probably be best just to merge what I've got with whatever you're planning
+[14:50] <ocharles> Arrows Tom Ellis has stolen :)
+[14:50] <ocharles> ok, well i'd be happy to give list comprehensions and/or rebindable syntax over, for sure
+[14:51] <ocharles> they are completely fair game right now
+[14:51] <south> I don't want to step on your toes with it but if I ended up publishing these after the 24 days it's likely to be pretty redundant :)
+[14:51] <ocharles> heh
+[14:51] <ocharles> more people talking about things is never a bad idea :)
+[14:51] <south> Haha yeah I know
+[14:51] <south> But I figured my material could make the 24 days even better, so why not?
+[14:52] <south> In any case I'm basically willing to write up posts on any of the stuff I have planned out for this
+[14:52] <ocharles> but we might saturate reddit with two similar blogs :)
+[14:52] <ocharles> sweet
+[14:53] <south> Yep, and also wanted to just give you access to all of it for examples/ideas for stuff to talk about if you were interested
+[14:53] <ocharles> well i'm really hoping 24 days is less about me, so if you end up with 3 days straight, that's absolutely not a problem
+[14:53] <south> That's awesome!
+[14:53] <south> I'd be happy to help
+[14:53] == south [c689146f@gateway/web/freenode/ip.198.137.20.111]
+[14:53] ==  realname : h198-137-20-111.xnet.uga.edu/198.137.20.111
+[14:53] ==  channels : #haskell
+[14:53] ==  server   : herbert.freenode.net [DE]
+[14:53] ==  idle     : 0 days 0 hours 0 minutes 14 seconds [connected: Tue Dec 02 14:38:58 2014]
+[14:53] == End of WHOIS
+[14:54] <ocharles> ok, i'll put you down for rebindable syntax and list comprehensions for now
+[14:54] <ocharles> but as i say, the more the merrier - but best to check first to make sure we don't clash with others work
+[14:54] <south> Absolutely
+[14:55] <south> For rebindable syntax, I'm actually not 100% sure what you meant earlier though (about Set and Monad)
+[14:55] <south> IMonad*
+[14:56] <ocharles> well, you're sort of just abusing do notation
+[14:56] <ocharles> but you can use do notation for actual monad type classes, like
+[14:56] <ocharles> http://hackage.haskell.org/package/json-assertions-1.0.5/docs/Test-JSON-Assertions.html
+[14:57] <south> Aha, cool
+[14:57] <south> I'll read your blog post on indexed free monads and try to work that in there
+[14:58] <ocharles> You can also have setBind :: Ord b => Set a -> (a -> Set b) -> Set b and (>>=) = setBind
+[14:58] <ocharles> oh yea, i already blogged about it :)
+[14:59] <south> What does that give you? Is Set not a real monad?
+[14:59] <ocharles> no, because you can't put anything you want in a Set
+[14:59] <ocharles> only things that have an ordering
+[14:59] <south> Oh right! Or something Hashable in the case of a HashSet etc
+[14:59] <ocharles> right
+[15:00] <south> Cool. I've had that issue before, should be able to bring that up
+[15:01] <south> For list comps, did you want me to talk about all of the ones in the program I linked? (Parallel, Transform, Monad)
+[15:02] <south> (Another one that I think is a lot of fun is TypeOperators: https://github.com/5outh/WeekOfPragmas/blob/master/TypeOperators.hs)
+[15:03] <ocharles> That's up to you
+[15:03] <south> Ok :)
+[15:03] <south> I just don't want to step on anyone's toes
+[15:04] <ocharles> If an extension really needs to be paired with another that's fine
+[15:04] <south> Sounds good
+[15:10] <south> Alright, well I have to get to class. Thanks for letting me in on the fun! I'll shoot you the list comp and rebindable syntax posts when I get them done :)
