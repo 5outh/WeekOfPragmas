@@ -40,10 +40,10 @@ parallelListComp = [ x + y * z
 This will produce this function:
 
 ```haskell
-map (\(x, y, z) -> x + y * z) (zip3 [0..10] [10..20] [20..30])
+zipWith3 (\(x, y, z) -> x + y * z) [0..10] [10..20] [20..30]
 ```
 
-but in a much more readable way.
+but in a more readable way.
 
 The first example of `zip` I always think of is the canonical `fibonacci` list generating function `fibs`:
 
@@ -73,11 +73,11 @@ fiblikes = 0 : 1 : [ x + y + z
                    ]
 ```
 
-The function this generates looks pretty ugly compared to `fibs`, but written with `ParallelListComprehension` syntax, we get something much nicer.
+The function this generates looks pretty ugly compared to `fibs`, but written with `ParallelListComprehension` syntax, we get something nicer.
 
 ## TransformListComp
 
-`TransformListComp` gives us something really powerful and really strange. It gives us an SQL-like syntax to process lists as if they were database tables. Let's construct a simple "table" that we can use to run queries on.
+`TransformListComp` gives us something really powerful and really strange: an SQL-like syntax to process lists as if they were database tables. Let's construct a simple "table" that we can use to run queries on.
 
 ```haskell
 data Character = Character
@@ -168,3 +168,5 @@ greet = [ name
         , _ <- putStrLn $ unwords ["Hello, ", name, "!"]
         ]
 ```
+
+As you can see, GHC extensions allow you to turn list comprehensions into completely different beasts!
