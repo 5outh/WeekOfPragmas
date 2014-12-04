@@ -15,7 +15,7 @@ List Comprehensions are sparsely used in Haskell. Often we opt to instead use `A
 
 ## ParallelListComp
 
-Let's take a simple, normal list comprehension:
+Let's look at a simple, normal list comprehension to start:
 
 ```haskell
 regularListComp :: [Int]
@@ -26,7 +26,7 @@ regularListComp = [ x + y * z
                   ]
 ```
 
-This takes the sum of each element of `x` paired with *each* element of `y` and collects the results. Another useful way to process lists together is to *zip* them and process each pair. This is what `ParallelListComprehensions` gives us: a list comprehension-like syntax that allows us to process lists *in parallel*, as if the lists were zipped together and then processed.
+This takes the sum of each element of `x` paired with *each* element of `y` and collects the results. Another useful way to process one ore more lists together is to *zip* them and process each tuple. This is what `ParallelListComprehensions` gives us: a list comprehension-like syntax that allows us to process lists *in parallel*, as if the lists were zipped together and then processed.
 
 ```haskell
 parallelListComp :: Int
@@ -37,7 +37,7 @@ parallelListComp = [ x + y * z
                    ]
 ```
 
-This will produce this function:
+This will produce the expression:
 
 ```haskell
 zipWith3 (\(x, y, z) -> x + y * z) [0..10] [10..20] [20..30]
@@ -119,7 +119,9 @@ bestBirthYears tbl = [ (the birthYear, firstName)
                      ]
 ```
 
-It's kind of wacky, but it works! First we pull out all of the `Character`s, then we group them together by their birth years. We then sort these grouped lists by their negative length (to get the largest first) and finally return the sorted list of most popular birth years, paired up with the first names of the friends born in those years. 
+It's kind of wacky, but it works! First we pull out all of the `Character`s, then we group them together by their birth years. We then sort these grouped lists by their negative length (to get the largest first) and finally return the sorted list of most popular birth years, paired up with the first names of the friends born in those years.
+
+This is only the tip of the iceberg when it comes to `TransformListComp`; for a more in-depth explanation of how everything works, [check out the docs](https://downloads.haskell.org/~ghc/7.8.3/docs/html/users_guide/syntax-extns.html#generalised-list-comprehensions). Onwards!
 
 ## MonadComprehensions
 
@@ -169,4 +171,4 @@ greet = [ name
         ]
 ```
 
-As you can see, GHC extensions allow you to turn list comprehensions into completely different beasts!
+It should be noted that `MonadComprehensions` generalize the both `TransformListComp` (guards in comprehensions are translated into the `guard` function if your monad is a `MonadPlus`) and `ParallelListComp` (parallel statements are translated into `mzip` expressions). You can read about the actual transformations that take place [here](https://downloads.haskell.org/~ghc/7.8.3/docs/html/users_guide/syntax-extns.html#monad-comprehensions).
